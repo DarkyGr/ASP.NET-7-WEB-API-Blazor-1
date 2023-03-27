@@ -5,7 +5,7 @@ VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorCrud_Server", "BlazorCrud_Server\BlazorCrud_Server.csproj", "{22B1F34C-B6D5-4154-806B-591CDF6A5B45}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorCrud.Shared", "BlazorCrud.Shared\BlazorCrud.Shared.csproj", "{6BAB3AC9-818A-463A-8ADD-ED79BA9EA3DD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorCrud_Shared", "BlazorCrud.Shared\BlazorCrud_Shared.csproj", "{6BAB3AC9-818A-463A-8ADD-ED79BA9EA3DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
