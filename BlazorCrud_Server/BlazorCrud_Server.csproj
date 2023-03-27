@@ -20,4 +20,8 @@
     <Folder Include="Models\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BlazorCrud.Shared\BlazorCrud_Shared.csproj" />
+  </ItemGroup>
+
 </Project>
