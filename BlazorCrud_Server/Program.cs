@@ -10,10 +10,21 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//Adding dabatase context
+// Adding dabatase context
 builder.Services.AddDbContext<DbBlazorwebapicrud1Context>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("SQLString"));
+});
+
+// Adding Cors
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("NewPolicy", app =>
+    {
+        app.AllowAnyOrigin()
+        .AllowAnyHeader()
+        .AllowAnyMethod();
+    });
 });
 
 var app = builder.Build();
@@ -24,6 +35,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+// Actived Cors
+app.UseCors("NewPolicy");
 
 app.UseAuthorization();
 
