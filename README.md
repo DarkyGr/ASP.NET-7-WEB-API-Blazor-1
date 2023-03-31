@@ -3,6 +3,7 @@
 This applcation was made with:
 - ASP.NET Core 7
 - SQL Server 2019
+- Blazor WebAssembly App
 
 Required packages in Visual Studio (BlazorCrud_Server Folder):
 - Microsoft.EntityFrameworkCore.SqlServer 7.0.3
