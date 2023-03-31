@@ -1,0 +1,99 @@
+﻿@page "/employee"
+@page "/employee/{idEdit:int}"
+
+@using BlazorCrud_Shared;
+@using BlazorCrud_Client.Services;
+
+@inject IEmployeeService employeeService;
+@inject IDepartmentService departmentService;
+@inject NavigationManager navigation;
+
+<h3>@title</h3>
+
+<EditForm Model="employee" OnInvalidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator></DataAnnotationsValidator>
+
+    <div class="mb-3">
+        <label class="form-label">Full name</label>
+        <InputText class="form-control" @bind-Value="employee.EmployeeName"></InputText>
+        <ValidationMessage For="@(() => employee.EmployeeName)"></ValidationMessage>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Department</label>
+        <InputSelect class="form-control" @bind-Value="employee.DepartmentId">
+            <option value="0">-- SELECT --</option>
+            @foreach (var item in departmentList)
+            {
+                <option value="@item.DepartmentId">@item.DepartmentName</option>    
+            }
+
+        </InputSelect>
+        <ValidationMessage For="@(() => employee.DepartmentId)"></ValidationMessage>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Salary</label>
+        <InputNumber class="form-control" @bind-Value="employee.Salary"></InputNumber>
+        <ValidationMessage For="@(() => employee.Salary)"></ValidationMessage>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Contract Date</label>
+        <InputDate class="form-control" @bind-Value="employee.ContractDate"></InputDate>
+        <ValidationMessage For="@(() => employee.ContractDate)"></ValidationMessage>
+    </div>
+
+    <button class="btn btn-primary" type="submit">
+        @btnText
+    </button>
+
+    <a class="btn btn-warning" href="employees">Back</a>
+</EditForm>
+
+
+@code {
+    [Parameter]
+    public int idEdit { get; set; } = 0;
+
+    string title = string.Empty;
+    string btnText = string.Empty;
+
+    EmployeeDTO employeeDTO = new EmployeeDTO();
+    List<DepartmentDTO> departmentList = new List<DepartmentDTO>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        if(idEdit != 0)
+        {
+            employeeDTO = await employeeService.Search(idEdit);
+            btnText = "Update Employee";
+            title = "Edit Employee";
+        }
+        else
+        {
+            employeeDTO.ContractDate = DateTime.Today;
+            btnText = "Save Employee";
+            title = "New Employee";
+        }
+        departmentList = await departmentService.List();
+    }
+
+    private async Task OnValidSubmit()
+    {
+        int idReturn = 0;
+        if (idEdit == 0)
+        {
+            idReturn = await employeeService.Add(employeeDTO);
+        }
+        else
+        {
+            idReturn = await employeeService.Edit(employeeDTO);
+        }
+
+        if (idReturn != 0)
+        {
+            navigation.NavigateTo("/employees");
+        }
+    }
+}
