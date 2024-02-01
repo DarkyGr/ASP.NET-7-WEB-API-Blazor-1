@@ -10,7 +10,7 @@
 
 <h3>@title</h3>
 
-<EditForm Model="employee" OnInvalidSubmit="OnValidSubmit">
+<EditForm Model="employee" OnValidSubmit="OnValidSubmit">
     <DataAnnotationsValidator></DataAnnotationsValidator>
 
     <div class="mb-3">
@@ -59,20 +59,20 @@
     string title = string.Empty;
     string btnText = string.Empty;
 
-    EmployeeDTO employeeDTO = new EmployeeDTO();
+    EmployeeDTO employee = new EmployeeDTO();
     List<DepartmentDTO> departmentList = new List<DepartmentDTO>();
 
     protected override async Task OnInitializedAsync()
     {
         if(idEdit != 0)
         {
-            employeeDTO = await employeeService.Search(idEdit);
+            employee = await employeeService.Search(idEdit);
             btnText = "Update Employee";
             title = "Edit Employee";
         }
         else
         {
-            employeeDTO.ContractDate = DateTime.Today;
+            employee.ContractDate = DateTime.Today;
             btnText = "Save Employee";
             title = "New Employee";
         }
@@ -84,11 +84,11 @@
         int idReturn = 0;
         if (idEdit == 0)
         {
-            idReturn = await employeeService.Add(employeeDTO);
+            idReturn = await employeeService.Add(employee);
         }
         else
         {
-            idReturn = await employeeService.Edit(employeeDTO);
+            idReturn = await employeeService.Edit(employee);
         }
 
         if (idReturn != 0)
