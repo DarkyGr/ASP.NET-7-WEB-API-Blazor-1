@@ -71,7 +71,7 @@ namespace BlazorCrud_Client.Services
 
         public async Task<bool> Delete(int id)
         {
-            var result = await _http.DeleteAsync($"api/Employee/Edit/{id}");
+            var result = await _http.DeleteAsync($"api/Employee/Delete/{id}");
             var response = await result.Content.ReadFromJsonAsync<ResponseAPI<int>>();
 
             if (response!.IsCorrect)
